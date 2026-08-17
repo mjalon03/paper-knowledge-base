@@ -7,7 +7,9 @@ authors = [
     { name = "mjalon03", email = "alon96835@naver.com" }
 ]
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "pymupdf>=1.28.2",
+]
 
 [build-system]
 requires = ["uv_build>=0.12.5,<0.13.0"]
