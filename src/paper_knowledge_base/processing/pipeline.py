@@ -216,8 +216,32 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Process one academic PDF.")
     parser.add_argument("path", type=Path)
     parser.add_argument("--verbose", action="store_true")
+    parser.add_argument(
+        "--resolve-metadata",
+        action="store_true",
+        help="Verify candidate scholarly metadata through Crossref and OpenAlex.",
+    )
     args = parser.parse_args()
-    print(_summary(process_paper(args.path), verbose=args.verbose))
+    result = process_paper(args.path)
+    print(_summary(result, verbose=args.verbose))
+    if args.resolve_metadata:
+        from paper_knowledge_base.metadata.resolver import resolve_metadata
+
+        resolution = resolve_metadata(result)
+        metadata = resolution.metadata
+        print("\nCanonical metadata:")
+        print(f"status: {resolution.status.value}")
+        print(f"title: {metadata.title.value or 'missing'}")
+        print(f"doi: {metadata.doi.value or 'missing'}")
+        print(f"authors: {len(metadata.authors)}")
+        print(f"year: {metadata.year.value or 'missing'}")
+        print(f"venue: {metadata.venue.name or 'missing'}")
+        print(
+            "evidence: "
+            + ", ".join(dict.fromkeys(item.source for item in resolution.evidence))
+        )
+        if args.verbose and resolution.conflicts:
+            print("conflicts: " + "; ".join(resolution.conflicts))
 
 
 if __name__ == "__main__":
