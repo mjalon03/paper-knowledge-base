@@ -30,6 +30,11 @@ dist/
 data/*
 !data/.gitkeep
 
+# Local SQLite storage databases
+*.db
+*.sqlite
+*.sqlite3
+
 # Logs
 logs/
 *.log
