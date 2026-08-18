@@ -37,3 +37,11 @@ logs/
 # Temporary files
 tmp/
 temp/
+
+# Local document-parser benchmark artifacts and third-party environments
+benchmark/output/
+benchmark/.external/
+benchmark/cache/
+benchmark/models/
+benchmark/tmp/
+benchmark/fixtures/generated/
