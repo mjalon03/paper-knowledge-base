@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "source": "Manually verified from the local PDFs on 2026-08-18; do not replace with parser output.",
+  "documents": [
+    {
+      "filename": "2022_Gorzo_Photonics_Tools_Astrocyte_Calcium_Transients.pdf",
+      "title": "Photonics tools begin to clarify astrocyte calcium transients",
+      "authors": ["Kelsea A. Gorzo", "Grant R. Gordon"],
+      "doi": "10.1117/1.NPh.9.2.021907",
+      "abstract_beginning": "Astrocytes integrate information from neurons and the microvasculature to coordinate brain activity and metabolism.",
+      "major_sections": ["1 Introduction", "2 Importance of Astrocyte Calcium Emerges", "5 Calcium Indicators", "8 Concluding Remarks", "References"]
+    },
+    {
+      "filename": "2024_Reising_astroCaST_Dynamic_Astrocytic_Calcium_Events.pdf",
+      "title": "Astrocytic Calcium Signaling Toolkit (astroCaST): efficient analysis of dynamic astrocytic calcium events",
+      "authors": ["Jan Philipp Reising", "Ana Cristina Gonzalez-Sanchez", "Athina Samara", "Eric Herlenius"],
+      "doi": "10.3389/fncel.2024.1408607",
+      "abstract_beginning": "The Astrocytic Calcium Signaling Toolkit (astroCaST) is a novel solution to a longstanding challenge in neuroscience research",
+      "major_sections": ["1 Introduction", "2 Methods", "3 Results", "4 Discussion", "References"]
+    },
+    {
+      "filename": "2024_Wu_STARDUST_Astrocyte_Regional_Calcium_Dynamics.pdf",
+      "title": "STARDUST: A pipeline for the unbiased analysis of astrocyte regional calcium dynamics",
+      "authors": ["Yifan Wu", "Yanchao Dai", "Katheryn B. Lefton", "Timothy E. Holy", "Thomas Papouin"],
+      "doi": "10.1016/j.xpro.2024.103305",
+      "abstract_beginning": "Calcium imaging has become a popular way to probe astrocyte activity",
+      "major_sections": ["Before you begin", "Key resources table", "Step-by-step method details", "Expected outcomes", "References"]
+    }
+  ]
+}

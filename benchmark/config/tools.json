@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "tools": {
+    "grobid": {"version": "0.9.1", "adapter": "run_grobid.py + normalize_grobid.py", "execution": "server_or_docker"},
+    "marker": {"version": "2.0.0", "adapter": "run_external_command.py", "execution": "isolated_python"},
+    "chandra": {"version": "0.2.0", "adapter": "run_external_command.py", "execution": "gpu_or_vllm"},
+    "mineru": {"version": "3.4.5", "adapter": "run_external_command.py", "execution": "isolated_python"},
+    "olmocr": {"version": "0.4.27", "adapter": "run_external_command.py", "execution": "nvidia_gpu_or_remote"},
+    "anydoc": {"version": "0.1.9", "adapter": "run_external_command.py", "execution": "secondary_local"},
+    "docling": {"version": "2.120.2", "adapter": "normalize_docling.py", "execution": "isolated_python"},
+    "surya": {"version": "0.22.1", "adapter": "run_external_command.py", "execution": "secondary_local"}
+  }
+}
