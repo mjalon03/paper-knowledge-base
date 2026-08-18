@@ -43,10 +43,11 @@ source-location coverage.
 
 ## Renderer contract
 
-The development renderer consumes only `quality.content.to_dict()`. Sections with
+The mobile renderer consumes only `quality.content` plus canonical metadata. It
+does not perform another cleanup pass. Sections with
 `special="quality_hidden_heading"` or an empty title render their blocks without
-an empty heading. It remains a small 390px-oriented debug renderer, not a
-production frontend or a PDF viewer.
+an empty heading. See [mobile-article-renderer.md](mobile-article-renderer.md)
+for the presentation model, responsive HTML, debug mode, and asset strategy.
 
 ## Validation policy
 
