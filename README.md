@@ -30,9 +30,29 @@ PDF
 `GROBID` owns candidate scholarly semantics: title, authors, affiliations,
 abstract, DOI, sections, and references. `Docling` owns document/layout output
 and the current local OCR fallback. GROBID output is candidate data, not
-canonical truth: Crossref/OpenAlex resolution and author reconciliation remain
-future work. In particular, the benchmark still shows the known Reising author
-anomaly and missing DOI; this pipeline preserves rather than repairs them.
+canonical truth. Crossref and OpenAlex now provide external verification and
+enrichment through a canonical metadata resolver.
+
+```text
+GROBID candidate metadata
+  -> Crossref DOI lookup or bibliographic search
+  -> OpenAlex DOI lookup or title search
+  -> transparent deterministic evidence comparison
+  -> provenance-aware canonical metadata, conflict, or unverified result
+```
+
+No source is automatically trusted. A DOI response with an incompatible title is
+a conflict; a missing DOI is recovered only from a strong title/author match,
+preferably when Crossref and OpenAlex independently converge. Source agreement
+can replace GROBID's candidate authors while retaining those candidates as
+evidence. The known Reising anomaly (six GROBID authors and no DOI) is therefore
+visible, not patched by a paper-specific rule.
+
+When equally titled records otherwise tie, the resolver gives a small,
+centralized preference to a `journal-article`/`article` record over
+`posted-content`/`preprint`. This chooses an external metadata record; it does
+not merge versions or implement paper-identity resolution, and competing source
+records remain in the returned evidence.
 
 ## Processing one PDF
 
@@ -54,6 +74,7 @@ cp .env.example .env
 export GROBID_BASE_URL=http://127.0.0.1:8070
 export DOCLING_EXECUTABLE=/absolute/path/to/docling
 uv run python -m paper_knowledge_base.processing.pipeline data/paper.pdf --verbose
+uv run python -m paper_knowledge_base.processing.pipeline data/paper.pdf --resolve-metadata --verbose
 ```
 
 The command prints a concise summary. Raw GROBID TEI and Docling JSON/Markdown
@@ -83,6 +104,26 @@ both configured services:
 ```bash
 PKB_RUN_INTEGRATION=1 uv run pytest -m integration
 ```
+
+Metadata source tests are also opt-in and make only two public DOI requests:
+
+```bash
+PKB_RUN_METADATA_INTEGRATION=1 uv run pytest -m metadata_integration
+```
+
+The resolver uses the public [Crossref REST API](https://www.crossref.org/documentation/retrieve-metadata/rest-api/)
+for `/works/doi/{doi}` lookup and `query.bibliographic` search, and the public
+[OpenAlex Works API](https://api.openalex.org/) for DOI lookup and title search.
+Neither requires an API key. Set `CROSSREF_MAILTO` and `OPENALEX_MAILTO` only if
+you want optional polite-pool identification; `METADATA_USER_AGENT` identifies
+the application without embedding a personal email. Clients have bounded
+timeouts and one retry for 429/5xx responses, and failures return unverified or
+partially resolved metadata rather than invalidating PDF processing.
+
+Known limitations remain: source records can disagree, preprint and published
+versions can differ, author formatting is not universal, DOI can be absent, and
+an ambiguous title-only match is intentionally left unresolved. Paper identity
+and version/deduplication are separate future work.
 
 The benchmark report remains the evidence for parser versions, local commands,
 and known limitations: [benchmark/BENCHMARK_REPORT.md](benchmark/BENCHMARK_REPORT.md).

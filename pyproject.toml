@@ -25,4 +25,5 @@ dev = [
 pythonpath = ["."]
 markers = [
     "integration: requires configured local GROBID and Docling environments",
+    "metadata_integration: calls public Crossref and OpenAlex APIs",
 ]
