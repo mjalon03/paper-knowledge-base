@@ -63,6 +63,13 @@ relationship, `DISTINCT`, or `AMBIGUOUS`. See
 the recommended future storage model. The identity matcher is deterministic
 and offline: it adds no LLM, embeddings, network, or database dependency.
 
+Persistent storage is implemented separately under
+`paper_knowledge_base.storage` with PostgreSQL as the production target,
+SQLite-backed unit tests, and Alembic migrations. It preserves Paper,
+Document, PaperDocument, Author/PaperAuthor, and PaperRelation as distinct
+entities. See [docs/paper-storage.md](docs/paper-storage.md) for setup,
+relation direction, deletion policy, and identity-to-storage behavior.
+
 ## Processing one PDF
 
 Start a local GROBID service separately. The benchmark validated GROBID 0.9.1
