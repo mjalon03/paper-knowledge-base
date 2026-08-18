@@ -17,6 +17,11 @@ from paper_knowledge_base.content.models import (
     SourceLocation,
     Table,
 )
+from paper_knowledge_base.content.quality import (
+    ContentQualityResult,
+    improve_content_quality,
+    normalize_paper_content,
+)
 
 __all__ = [
     "BlockType",
@@ -24,6 +29,7 @@ __all__ = [
     "Citation",
     "ContentBlock",
     "ContentProvenance",
+    "ContentQualityResult",
     "ContentStatus",
     "Equation",
     "Figure",
@@ -34,4 +40,6 @@ __all__ = [
     "SourceLocation",
     "Table",
     "build_paper_content",
+    "improve_content_quality",
+    "normalize_paper_content",
 ]
