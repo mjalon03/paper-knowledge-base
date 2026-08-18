@@ -116,6 +116,8 @@ highlights block, and the Reising output contains malformed-looking heading labe
 Docling can over-detect pictures, especially in Wu. Unmatched cross-parser assets
 therefore remain standalone instead of being forced into an incorrect section.
 
-These limitations are intentionally documented for a future narrow content-quality
-refinement feature. This feature does not add paper-specific heading heuristics or
-claim that parser output is fully adjudicated.
+The parser-independent refinement pass in `content.quality` addresses only the
+conservative structural cases above. It does not add paper-specific heading
+heuristics, semantic rewriting, or claim that parser output is fully adjudicated.
+See [paper-content-quality.md](paper-content-quality.md) for its raw/clean contract,
+typed diagnostics, and validation policy.

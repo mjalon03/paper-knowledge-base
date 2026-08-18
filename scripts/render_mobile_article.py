@@ -38,7 +38,14 @@ def render_mobile_article(content: dict[str, Any]) -> str:
     for section in sorted(
         sections.values(), key=lambda item: (item["order"], item["id"])
     ):
-        heading = f"<h{min(int(section['level']) + 1, 6)}>{html.escape(section['title'])}</h{min(int(section['level']) + 1, 6)}>"
+        title = section.get("title") or ""
+        if section.get("special") == "quality_hidden_heading":
+            title = ""
+        heading = (
+            f"<h{min(int(section['level']) + 1, 6)}>{html.escape(title)}</h{min(int(section['level']) + 1, 6)}>"
+            if title
+            else ""
+        )
         body = "".join(
             _render_block(block, citations, references)
             for block in by_section.get(section["id"], [])
