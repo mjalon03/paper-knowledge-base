@@ -54,6 +54,15 @@ centralized preference to a `journal-article`/`article` record over
 not merge versions or implement paper-identity resolution, and competing source
 records remain in the returned evidence.
 
+Paper identity and PDF deduplication are now implemented as a separate,
+database-independent layer. `DocumentIdentity` models one concrete PDF and its
+metadata, while `compare_identity()` returns an explainable relationship such
+as `EXACT_FILE_DUPLICATE`, `SAME_PAPER`, `RELATED_VERSION`, a related-material
+relationship, `DISTINCT`, or `AMBIGUOUS`. See
+[docs/paper-identity.md](docs/paper-identity.md) for the matching hierarchy and
+the recommended future storage model. The identity matcher is deterministic
+and offline: it adds no LLM, embeddings, network, or database dependency.
+
 ## Processing one PDF
 
 Start a local GROBID service separately. The benchmark validated GROBID 0.9.1
@@ -122,8 +131,8 @@ partially resolved metadata rather than invalidating PDF processing.
 
 Known limitations remain: source records can disagree, preprint and published
 versions can differ, author formatting is not universal, DOI can be absent, and
-an ambiguous title-only match is intentionally left unresolved. Paper identity
-and version/deduplication are separate future work.
+an ambiguous title-only match is intentionally left unresolved. The identity
+layer does not persist a duplicate index or infer relationships from full text.
 
 The benchmark report remains the evidence for parser versions, local commands,
 and known limitations: [benchmark/BENCHMARK_REPORT.md](benchmark/BENCHMARK_REPORT.md).
